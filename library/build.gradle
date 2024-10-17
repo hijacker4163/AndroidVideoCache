@@ -1,31 +1,37 @@
 buildscript {
     repositories {
-        jcenter()
+        google()
+        mavenCentral() // 添加 Maven Central
     }
     dependencies {
-        classpath 'com.novoda:bintray-release:0.4.0'
+        classpath 'com.android.tools.build:gradle:4.1.0' // 更新至穩定版本
+        // 你可以暫時移除 Bintray，或找到其他替代方案
+        // classpath 'com.novoda:bintray-release:0.9.2' // 確認此版本仍有效
     }
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'idea'
-apply plugin: 'bintray-release'
+// apply plugin: 'bintray-release' // 這行先移除，因為 Bintray 停止運行了
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.2'
+    compileSdkVersion 29 // 升級至較新的 SDK 版本
+    buildToolsVersion '29.0.3' // 同步更新 Build Tools 版本
 
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 23
+        minSdkVersion 16 // 建議升級到更高的最小 SDK 版本
+        targetSdkVersion 29 // 使用較新的 Target SDK 版本
         versionCode 22
         versionName '2.7.1'
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8 // 升級到 Java 8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+dependencies {
+    implementation 'org.slf4j:slf4j-android:1.7.21' // 使用 implementation
 }
 
 idea {
@@ -35,15 +41,12 @@ idea {
     }
 }
 
-dependencies {
-    compile 'org.slf4j:slf4j-android:1.7.21'
-}
-
-publish {
-    userOrg = 'alexeydanilov'
-    groupId = 'com.danikula'
-    artifactId = 'videocache'
-    publishVersion = android.defaultConfig.versionName
-    description = 'Cache support for android VideoView'
-    website = 'https://github.com/danikula/AndroidVideoCache'
-}
+// Bintray 部分的設定移除或替換為其他發布方式
+// publish {
+//    userOrg = 'alexeydanilov'
+//    groupId = 'com.danikula'
+//    artifactId = 'videocache'
+//    publishVersion = android.defaultConfig.versionName
+//    description = 'Cache support for android VideoView'
+//    website = 'https://github.com/danikula/AndroidVideoCache'
+// }
