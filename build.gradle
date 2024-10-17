@@ -1,14 +1,16 @@
 buildscript {
     repositories {
-        jcenter()
+        google() // 添加 Google 的 Maven 儲存庫
+        jcenter() // 仍然保留，但請注意 JCenter 現在已經停止運行
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'com.android.tools.build:gradle:4.1.0' // 更新至較新穩定版本
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
+        google() // 同樣在這裡添加 Google 儲存庫
+        jcenter() // 可選
     }
 }
