@@ -1,7 +1,8 @@
 buildscript {
     repositories {
-        google() // 添加 Google 的 Maven 儲存庫
-        jcenter() // 仍然保留，但請注意 JCenter 現在已經停止運行
+        google() // 添加 Google 的 Maven 儲存庫        
+        mavenCentral() // 添加 Maven Central
+        //jcenter() // 仍然保留，但請注意 JCenter 現在已經停止運行
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.0' // 更新至較新穩定版本
@@ -11,6 +12,7 @@ buildscript {
 allprojects {
     repositories {
         google() // 同樣在這裡添加 Google 儲存庫
-        jcenter() // 可選
+        mavenCentral() // 添加 Maven Central
+        //jcenter() // 可選
     }
 }
