@@ -1,44 +1,50 @@
 buildscript {
     repositories {
-        jcenter()
+        google() // 改用 Google 的 Maven
+        mavenCentral() // 改用 Maven Central
     }
     dependencies {
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+        // 移除 android-apt
+        // classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+        classpath 'com.android.tools.build:gradle:4.1.0' // 更新至新版本
     }
 }
 
 repositories {
     maven { url 'https://github.com/dahlgren/vpi-aar/raw/master' }
+    google() // 同樣在這裡添加 Google 的 Maven 儲存庫
+    mavenCentral() // 添加 Maven Central 作為依賴來源
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+// 不需要再 apply android-apt 插件
+// apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.2'
+    compileSdkVersion 29 // 更新 SDK 版本
+    buildToolsVersion '29.0.3' // 更新 Build Tools 版本
 
     defaultConfig {
         applicationId 'com.danikula.videocache.sample'
-        minSdkVersion 15
-        targetSdkVersion 23
+        minSdkVersion 16 // 建議提升到 16
+        targetSdkVersion 29 // 更新 target SDK 版本
         versionCode 1
         versionName '1.0'
     }
-}
 
-apt {
-    arguments {
-        androidManifestFile variant.outputs[0].processResources.manifestFile
-        resourcePackageName android.defaultConfig.applicationId
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-//    compile project(':library')
-    compile 'com.android.support:support-v4:23.1.0'
-    compile 'org.androidannotations:androidannotations-api:3.3.2'
-    compile 'com.danikula:videocache:2.7.1'
-    compile 'com.viewpagerindicator:library:2.4.2-SNAPSHOT@aar'
-    apt 'org.androidannotations:androidannotations:3.3.2'
+    // 使用 implementation 替代 compile
+    implementation 'com.android.support:support-v4:23.1.0'
+    implementation 'org.androidannotations:androidannotations-api:3.3.2'
+    implementation 'com.danikula:videocache:2.7.1'
+    implementation 'com.viewpagerindicator:library:2.4.2-SNAPSHOT@aar'
+
+    // 使用 annotationProcessor 替代 apt
+    annotationProcessor 'org.androidannotations:androidannotations:3.3.2'
 }
